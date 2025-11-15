@@ -1,75 +1,98 @@
-// 取得容器
+// 基本設定
 const container = document.getElementById('container');
-
-// 建立場景、相機、渲染器
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+scene.background = new THREE.Color(0xf0f0f0);
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.z = 10;
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+camera.position.set(5, 5, 10);
 
-const renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth * 0.8, window.innerHeight * 0.8);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
 container.appendChild(renderer.domElement);
 
-// 控制器
+// OrbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
 
 // 光源
-const ambientLight = new THREE.AmbientLight(0x404040);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(10,10,10);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+directionalLight.position.set(10, 10, 10);
 scene.add(directionalLight);
 
-// 範例分子：H2O
-const atoms = [
-  {element:'O', x:0, y:0, z:0, color:0xff0000},
-  {element:'H', x:1, y:0, z:0, color:0xffffff},
-  {element:'H', x:-1, y:0, z:0, color:0xffffff}
+// 原子顏色對照表
+const atomColors = {
+  H: 0xffffff,  // 氫
+  C: 0x000000,  // 碳
+  O: 0xff0000,  // 氧
+  N: 0x0000ff,  // 氮
+  S: 0xffff00,  // 硫
+};
+
+// 範例分子資料：水 H2O
+const molecule = [
+  { element: 'O', position: [0, 0, 0] },
+  { element: 'H', position: [0.96, 0, 0] },
+  { element: 'H', position: [-0.24, 0.93, 0] }
 ];
 
-const bonds = [
-  {start:0, end:1},
-  {start:0, end:2}
-];
+// 原子半徑
+const atomRadius = {
+  H: 0.2,
+  C: 0.3,
+  O: 0.3,
+  N: 0.3,
+  S: 0.35,
+};
 
-// 繪製原子
-atoms.forEach(atom => {
-  const geometry = new THREE.SphereGeometry(0.3, 32, 32);
-  const material = new THREE.MeshStandardMaterial({color: atom.color});
+// 建立球棒模型
+function addAtom(atom) {
+  const geometry = new THREE.SphereGeometry(atomRadius[atom.element], 32, 32);
+  const material = new THREE.MeshStandardMaterial({ color: atomColors[atom.element] });
   const sphere = new THREE.Mesh(geometry, material);
-  sphere.position.set(atom.x, atom.y, atom.z);
+  sphere.position.set(...atom.position);
   scene.add(sphere);
+  return sphere;
+}
+
+function addBond(atom1, atom2) {
+  const start = new THREE.Vector3(...atom1.position);
+  const end = new THREE.Vector3(...atom2.position);
+  const bondLength = start.distanceTo(end);
+  const bondGeometry = new THREE.CylinderGeometry(0.1, 0.1, bondLength, 16);
+  const bondMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });
+  const bond = new THREE.Mesh(bondGeometry, bondMaterial);
+
+  // 定位與旋轉
+  const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
+  bond.position.copy(mid);
+  bond.lookAt(end);
+  bond.rotateX(Math.PI / 2);
+
+  scene.add(bond);
+}
+
+// 建立分子
+const atoms = molecule.map(addAtom);
+for (let i = 0; i < atoms.length; i++) {
+  for (let j = i + 1; j < atoms.length; j++) {
+    addBond(molecule[i], molecule[j]);
+  }
+}
+
+// 自適應視窗
+window.addEventListener('resize', () => {
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
 });
 
-// 繪製鍵
-bonds.forEach(bond => {
-  const start = atoms[bond.start];
-  const end = atoms[bond.end];
-  const material = new THREE.MeshStandardMaterial({color:0x000000});
-  const cylinderGeom = new THREE.CylinderGeometry(0.1, 0.1, 1, 16);
-  const cylinder = new THREE.Mesh(cylinderGeom, material);
-
-  // 計算位置與方向
-  const startVec = new THREE.Vector3(start.x, start.y, start.z);
-  const endVec = new THREE.Vector3(end.x, end.y, end.z);
-  const mid = new THREE.Vector3().addVectors(startVec, endVec).multiplyScalar(0.5);
-  cylinder.position.copy(mid);
-
-  const diff = new THREE.Vector3().subVectors(endVec, startVec);
-  const length = diff.length();
-  cylinder.scale.set(1, length, 1);
-  cylinder.lookAt(endVec);
-  cylinder.rotateX(Math.PI / 2);
-
-  scene.add(cylinder);
-});
-
-// 動畫
+// 渲染迴圈
 function animate() {
   requestAnimationFrame(animate);
-  renderer.render(scene, camera);
   controls.update();
+  renderer.render(scene, camera);
 }
 animate();
