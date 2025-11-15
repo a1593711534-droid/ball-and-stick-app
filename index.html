@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<title>化學棍球圖互動版</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高中有機化合物棍球圖</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="controls">
-  <h3>加入原子</h3>
-  <select id="element-select">
-    <option value="C">C</option>
-    <option value="H">H</option>
-    <option value="O">O</option>
-    <option value="N">N</option>
-    <option value="Cl">Cl</option>
-  </select>
-  <button id="add-atom">加入</button>
-  <div id="bond-controls"></div>
-</div>
-<div id="container"></div>
+  <h1>高中有機化合物棍球圖 App</h1>
+  <div class="container">
+    <div class="controls">
+      <label for="compoundSelect">選擇化合物：</label>
+      <select id="compoundSelect">
+        <option value="">-- 請選擇 --</option>
+      </select>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
-<script src="script.js"></script>
+      <div id="info">
+        <p><strong>實驗式:</strong> <span id="empiricalFormula"></span></p>
+        <p><strong>分子式:</strong> <span id="molecularFormula"></span></p>
+        <p><strong>結構式:</strong> <span id="structuralFormula"></span></p>
+        <p><strong>示性式:</strong> <span id="condensedFormula"></span></p>
+      </div>
+    </div>
+
+    <div id="viewer" class="viewer"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
