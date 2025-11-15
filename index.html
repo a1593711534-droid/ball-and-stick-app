@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
     <title>3D 化學分子模型</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -13,17 +12,18 @@
 
 <select id="compoundSelect">
     <option value="">--- 請選擇化合物 ---</option>
-    <option value="methanol">甲醇 (Methanol)</option>
-    <option value="ethanol">乙醇 (Ethanol)</option>
-    <option value="propanol">丙醇 (Propanol)</option>
 
-    <option value="dimethyl_ether">甲醚 (Dimethyl ether)</option>
-    <option value="diethyl_ether">乙醚 (Diethyl ether)</option>
-    <option value="methyl_ethyl_ether">甲乙醚 (Methyl ethyl ether)</option>
+    <option value="methane">甲烷 Methane</option>
+    <option value="ethane">乙烷 Ethane</option>
+    <option value="propane">丙烷 Propane</option>
 
-    <option value="methane">甲烷 (Methane)</option>
-    <option value="ethane">乙烷 (Ethane)</option>
-    <option value="propane">丙烷 (Propane)</option>
+    <option value="methanol">甲醇 Methanol</option>
+    <option value="ethanol">乙醇 Ethanol</option>
+    <option value="propanol">丙醇 Propanol</option>
+
+    <option value="dimethyl_ether">甲醚 Dimethyl ether</option>
+    <option value="diethyl_ether">乙醚 Diethyl ether</option>
+    <option value="methyl_ethyl_ether">甲乙醚 Methyl ethyl ether</option>
 </select>
 
 <div id="formulaBox">
@@ -31,7 +31,7 @@
     <div id="formulaText">尚未選擇</div>
 </div>
 
-<div id="viewer" style="width: 100%; height: 500px; margin-top: 20px;"></div>
+<div id="viewer" style="width:100%; height:500px;"></div>
 
 <script src="script.js"></script>
 </body>
