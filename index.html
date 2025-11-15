@@ -20,32 +20,12 @@
     </select>
   </label>
   <button id="add-atom">加入原子</button>
-  <br>
-  <label>左鍵：
-    <select id="left-bond">
-      <option value="none">無</option>
-      <option value="single">單鍵</option>
-      <option value="double">雙鍵</option>
-      <option value="triple">三鍵</option>
-    </select>
-  </label>
-  <label>右鍵：
-    <select id="right-bond">
-      <option value="none">無</option>
-      <option value="single">單鍵</option>
-      <option value="double">雙鍵</option>
-      <option value="triple">三鍵</option>
-    </select>
-  </label>
-  <br>
-  <label>鍵角 (°):
-    <input type="number" id="bond-angle" value="109.5" step="1">
-  </label>
 </div>
 
 <div id="canvas-container"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
