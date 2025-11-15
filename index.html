@@ -1,38 +1,101 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>3D 化學分子模型</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"></script>
+    <title>化學棍球圖 App</title>
     <link rel="stylesheet" href="style.css">
+    <script src="3Dmol-min.js"></script>
 </head>
 <body>
 
-<h1>3D 化學分子模型展示</h1>
+<h1>化學棍球圖 App（高中常見有機化合物）</h1>
 
-<select id="compoundSelect">
-    <option value="">--- 請選擇化合物 ---</option>
+<div id="controls">
+    <label for="compoundSelect">選擇化合物：</label>
+    <select id="compoundSelect">
+        <option value="">--請選擇--</option>
 
-    <option value="methane">甲烷 Methane</option>
-    <option value="ethane">乙烷 Ethane</option>
-    <option value="propane">丙烷 Propane</option>
+        <optgroup label="烷烴 (Alkanes)">
+            <option value="ch4">甲烷 CH₄</option>
+            <option value="c2h6">乙烷 C₂H₆</option>
+            <option value="c3h8">丙烷 C₃H₈</option>
+            <option value="c4h10">丁烷 C₄H₁₀</option>
+        </optgroup>
 
-    <option value="methanol">甲醇 Methanol</option>
-    <option value="ethanol">乙醇 Ethanol</option>
-    <option value="propanol">丙醇 Propanol</option>
+        <optgroup label="烯烴 (Alkenes)">
+            <option value="c2h4">乙烯 C₂H₄</option>
+            <option value="c3h6">丙烯 C₃H₆</option>
+            <option value="c4h8">丁烯 C₄H₈</option>
+        </optgroup>
 
-    <option value="dimethyl_ether">甲醚 Dimethyl ether</option>
-    <option value="diethyl_ether">乙醚 Diethyl ether</option>
-    <option value="methyl_ethyl_ether">甲乙醚 Methyl ethyl ether</option>
-</select>
+        <optgroup label="炔烴 (Alkynes)">
+            <option value="c2h2">乙炔 C₂H₂</option>
+            <option value="c3h4">丙炔 C₃H₄</option>
+            <option value="c4h6">丁炔 C₄H₆</option>
+        </optgroup>
 
-<div id="formulaBox">
-    <h2>化學式</h2>
-    <div id="formulaText">尚未選擇</div>
+        <optgroup label="芳香烴 (Aromatics)">
+            <option value="benzene">苯 C₆H₆</option>
+        </optgroup>
+
+        <optgroup label="醇類 (Alcohols)">
+            <option value="ch3oh">甲醇 CH₃OH</option>
+            <option value="c2h5oh">乙醇 C₂H₅OH</option>
+            <option value="c3h7oh">丙醇 C₃H₇OH</option>
+            <option value="c4h9oh">丁醇 C₄H₉OH</option>
+        </optgroup>
+
+        <optgroup label="醚類 (Ether)">
+            <option value="dimethylether">甲醚 CH₃-O-CH₃</option>
+            <option value="diethylether">乙醚 C₂H₅-O-C₂H₅</option>
+            <option value="methylethylether">甲乙醚 CH₃-O-C₂H₅</option>
+        </optgroup>
+
+        <optgroup label="醛 (Aldehydes)">
+            <option value="hcho">甲醛 HCHO</option>
+            <option value="ch3cho">乙醛 CH₃CHO</option>
+            <option value="c2h5cho">丙醛 C₂H₅CHO</option>
+            <option value="c3h7cho">丁醛 C₃H₇CHO</option>
+        </optgroup>
+
+        <optgroup label="酮 (Ketones)">
+            <option value="acetone">丙酮 C₃H₆O</option>
+            <option value="butanone">丁酮 C₄H₈O</option>
+        </optgroup>
+
+        <optgroup label="羧酸 (Carboxylic acids)">
+            <option value="hcooh">甲酸 HCOOH</option>
+            <option value="ch3cooh">乙酸 CH₃COOH</option>
+            <option value="c2h5cooh">丙酸 C₂H₅COOH</option>
+            <option value="c3h7cooh">丁酸 C₃H₇COOH</option>
+        </optgroup>
+
+        <optgroup label="酯 (Esters)">
+            <option value="ethylacetate">乙酸乙酯 C₄H₈O₂</option>
+        </optgroup>
+
+        <optgroup label="醯胺 (Amides)">
+            <option value="acetamide">乙醯胺 CH₃CONH₂</option>
+        </optgroup>
+
+        <optgroup label="胺 (Amines)">
+            <option value="methylamine">甲胺 CH₃NH₂</option>
+        </optgroup>
+
+    </select>
 </div>
 
-<div id="viewer" style="width:100%; height:500px;"></div>
+<div id="infoBox">
+    <p><b>實驗式：</b> <span id="empirical"></span></p>
+    <p><b>分子式：</b> <span id="molecular"></span></p>
+    <p><b>結構式：</b> <span id="structural"></span></p>
+    <p><b>示性式：</b> <span id="semi"></span></p>
+</div>
+
+<h2>3D 棍球模型</h2>
+<div id="viewer" style="width: 600px; height: 400px;"></div>
 
 <script src="script.js"></script>
+
 </body>
 </html>

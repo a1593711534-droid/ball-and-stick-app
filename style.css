@@ -1,11 +1,28 @@
 body {
-    font-family: sans-serif;
+    font-family: "Segoe UI", Arial;
+    background: #f6f6f6;
     padding: 20px;
-    background: #fafafa;
 }
 
-#compoundSelect {
-    font-size: 18px;
-    padding: 8px;
+h1 {
+    margin-bottom: 10px;
+}
+
+#controls {
     margin-bottom: 20px;
+}
+
+#infoBox {
+    margin: 20px 0;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+    width: 360px;
+    line-height: 1.8;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+#viewer {
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
