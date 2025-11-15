@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>化學棍球圖編輯器</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>化學棍球圖 App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>化學棍球圖編輯器</h1>
+    <div id="controls">
+        <h2>添加原子</h2>
+        <label>元素：
+            <select id="element-select">
+                <option value="C">C</option>
+                <option value="H">H</option>
+                <option value="O">O</option>
+                <option value="N">N</option>
+                <option value="Cl">Cl</option>
+            </select>
+        </label>
+        <button id="add-atom">加入原子</button>
 
-<div id="controls">
-  <label>選擇原子：
-    <select id="atom-select">
-      <option value="C">C</option>
-      <option value="H">H</option>
-      <option value="O">O</option>
-      <option value="N">N</option>
-      <option value="Cl">Cl</option>
-    </select>
-  </label>
-  <button id="add-atom">加入原子</button>
-</div>
+        <h2>連接鍵</h2>
+        <label>左邊鍵：
+            <select id="left-bond">
+                <option value="0">無</option>
+                <option value="1">單鍵</option>
+                <option value="2">雙鍵</option>
+                <option value="3">三鍵</option>
+            </select>
+        </label>
+        <label>右邊鍵：
+            <select id="right-bond">
+                <option value="0">無</option>
+                <option value="1">單鍵</option>
+                <option value="2">雙鍵</option>
+                <option value="3">三鍵</option>
+            </select>
+        </label>
+        <label>鍵角：
+            <input type="number" id="bond-angle" value="109.5" step="1"> 度
+        </label>
+        <button id="connect-bond">連接原子</button>
+    </div>
 
-<div id="canvas-container"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-<script src="script.js"></script>
+    <div id="container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

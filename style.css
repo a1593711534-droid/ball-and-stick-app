@@ -1,21 +1,24 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h1 {
-  margin: 10px 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
 }
 
 #controls {
-  margin-bottom: 10px;
+    width: 250px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
-#canvas-container {
-  width: 100%;
-  height: 80vh; /* 佔大部分畫面 */
-  border: 1px solid #ccc;
+#controls h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#container {
+    flex: 1;
+    display: block;
 }
